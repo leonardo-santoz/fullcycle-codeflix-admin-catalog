@@ -8,6 +8,7 @@ const config: Config = {
     "^.+\\.(t|j)sx?$": ["@swc/jest", {}],
   },
   testEnvironment: "node",
+  transformIgnorePatterns: ["/node_modules/(?!uuid)"],
 };
 
 export default config;
