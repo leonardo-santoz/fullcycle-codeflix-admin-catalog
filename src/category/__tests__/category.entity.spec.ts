@@ -1,7 +1,12 @@
-import { Category } from "../category/domain/category.entity";
-import { Uuid } from "../shared/domain/value-objects/uuid-vo";
+import { Category } from "../../category/domain/category.entity";
+import { Uuid } from "../../shared/domain/value-objects/uuid-vo";
 
 describe("Category Unit Tests", () => {
+  let validateSpy: any;
+  beforeEach(() => {
+    validateSpy = jest.spyOn(Category, "validate");
+  });
+
   describe("Constructor", () => {
     it("should create a category with default value", () => {
       const category = new Category({ name: "Movie" });
@@ -52,6 +57,7 @@ describe("Category Unit Tests", () => {
       expect(category.description).toBeNull();
       expect(category.is_active).toBeTruthy();
       expect(category.created_at).toBeInstanceOf(Date);
+      expect(validateSpy).toHaveBeenCalledTimes(1);
     });
 
     it("should create a category with description", () => {
@@ -65,6 +71,7 @@ describe("Category Unit Tests", () => {
       expect(category.description).toBe("Movie description");
       expect(category.is_active).toBeTruthy();
       expect(category.created_at).toBeInstanceOf(Date);
+      expect(validateSpy).toHaveBeenCalledTimes(1);
     });
 
     it("should create a category with is_active", () => {
@@ -79,6 +86,7 @@ describe("Category Unit Tests", () => {
       expect(category.description).toBe("Movie description");
       expect(category.is_active).toBeFalsy();
       expect(category.created_at).toBeInstanceOf(Date);
+      expect(validateSpy).toHaveBeenCalledTimes(1);
     });
   });
 
@@ -95,7 +103,7 @@ describe("Category Unit Tests", () => {
         name: "Movie",
       });
       expect(category.category_id).toBeInstanceOf(Uuid);
-      
+
       if (category_id instanceof Uuid) {
         expect(category.category_id).toBe(category_id);
       }
@@ -107,6 +115,7 @@ describe("Category Unit Tests", () => {
     category.changeName("New Movie");
 
     expect(category.name).toBe("New Movie");
+    expect(validateSpy).toHaveBeenCalledTimes(2);
   });
 
   it("should change description", () => {
@@ -114,6 +123,7 @@ describe("Category Unit Tests", () => {
     category.changeDescription("New Description");
 
     expect(category.description).toBe("New Description");
+    expect(validateSpy).toHaveBeenCalledTimes(2);
   });
 
   it("should activate a category", () => {
