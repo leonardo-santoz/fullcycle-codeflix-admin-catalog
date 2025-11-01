@@ -1,4 +1,5 @@
 import { Category } from "../../category/domain/category.entity";
+import { EntityValidationError } from "../../shared/domain/validators/validation-error";
 import { Uuid } from "../../shared/domain/value-objects/uuid-vo";
 
 describe("Category Unit Tests", () => {
@@ -138,5 +139,15 @@ describe("Category Unit Tests", () => {
     category.deactivate();
 
     expect(category.is_active).toBeFalsy();
+  });
+});
+
+describe("Category validator", () => {
+  it("xpto", () => {
+    expect(() => {
+      Category.create({
+        name: "",
+      });
+    }).toThrow(new EntityValidationError({ name: ["name is required"] }));
   });
 });
