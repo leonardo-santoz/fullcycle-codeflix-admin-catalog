@@ -9,6 +9,7 @@ const config: Config = {
   },
   testEnvironment: "node",
   transformIgnorePatterns: ["/node_modules/(?!uuid)"],
+  setupFilesAfterEnv: ["./shared/infra/testing/expect-helpers.ts"],
 };
 
 export default config;

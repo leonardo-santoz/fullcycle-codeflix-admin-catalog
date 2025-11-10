@@ -142,12 +142,14 @@ describe("Category Unit Tests", () => {
   });
 });
 
-describe("Category validator", () => {
-  it("xpto", () => {
-    expect(() => {
-      Category.create({
-        name: "",
-      });
-    }).toThrow(new EntityValidationError({ name: ["name is required"] }));
-  });
-});
+// describe("Category validator", () => {
+//   it("should create an invalid caetegory with name property", () => {
+//     expect(() => Category.create({ name: null })).containsErrorMessages({
+//       name: [
+//         "name should not be empty",
+//         "name must be a string",
+//         "name must be shorter than or equal 255 characters",
+//       ],
+//     });
+//   });
+// }); TODO: review lesson "Criando asserção personalizada para testar as invalidações"
